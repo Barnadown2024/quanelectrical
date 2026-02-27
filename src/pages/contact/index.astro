@@ -52,9 +52,10 @@ import settings from '../../data/settings.json';
 				<div class="rounded-2xl border border-slate-200 bg-slate-50/50 p-8">
 					<h2 class="font-heading text-xl font-semibold text-slate-900">Send a message</h2>
 					<p class="mt-2 text-sm text-slate-600">
-						This is a mock form. To handle submissions, add a Cloudflare Pages Function or form service (e.g. Formspree, Netlify Forms).
+						Fill in the form and we'll get back to you as soon as we can.
 					</p>
-					<form class="mt-6 space-y-5" action="#" method="post">
+					<div id="form-feedback" class="mt-4 hidden rounded-xl border px-4 py-3 text-sm" role="alert" aria-live="polite"></div>
+					<form id="contact-form" class="mt-6 space-y-5" action="/api/contact" method="post">
 						<div>
 							<label for="name" class="block text-sm font-medium text-slate-700">Name</label>
 							<input type="text" id="name" name="name" required class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20" />
@@ -71,7 +72,7 @@ import settings from '../../data/settings.json';
 							<label for="message" class="block text-sm font-medium text-slate-700">Message</label>
 							<textarea id="message" name="message" rows="4" required class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20"></textarea>
 						</div>
-						<button type="submit" class="w-full rounded-xl bg-amber-500 px-4 py-3.5 font-heading font-semibold text-slate-900 shadow-sm transition hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+						<button type="submit" id="submit-btn" class="w-full rounded-xl bg-amber-500 px-4 py-3.5 font-heading font-semibold text-slate-900 shadow-sm transition hover:bg-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-70">
 							Send message
 						</button>
 					</form>
@@ -80,3 +81,64 @@ import settings from '../../data/settings.json';
 		</div>
 	</section>
 </BaseLayout>
+
+<script>
+	document.getElementById('contact-form')?.addEventListener('submit', async (e) => {
+		e.preventDefault();
+		const form = e.target;
+		const feedback = document.getElementById('form-feedback');
+		const submitBtn = document.getElementById('submit-btn');
+		if (!feedback || !submitBtn) return;
+
+		feedback.classList.add('hidden');
+		feedback.classList.remove('border-green-200', 'bg-green-50', 'text-green-800', 'border-red-200', 'bg-red-50', 'text-red-800');
+		submitBtn.disabled = true;
+		submitBtn.textContent = 'Sending…';
+
+		const apiUrl = typeof window !== 'undefined' && window.location.hostname === 'localhost'
+			? 'https://quanelectrical.pages.dev/api/contact'
+			: '/api/contact';
+
+		try {
+			const res = await fetch(apiUrl, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					name: form.name.value.trim(),
+					email: form.email.value.trim(),
+					phone: form.phone.value.trim(),
+					message: form.message.value.trim(),
+				}),
+			});
+			let data;
+			try {
+				data = await res.json();
+			} catch {
+				feedback.classList.remove('hidden');
+				feedback.classList.add('border-red-200', 'bg-red-50', 'text-red-800');
+				feedback.textContent = res.ok
+					? 'Something went wrong. Please try again.'
+					: 'The server could not process your message. Please try again or email us directly.';
+				submitBtn.disabled = false;
+				submitBtn.textContent = 'Send message';
+				return;
+			}
+
+			feedback.classList.remove('hidden');
+			if (data.success) {
+				feedback.classList.add('border-green-200', 'bg-green-50', 'text-green-800');
+				feedback.textContent = data.message || 'Thank you. Your message has been sent.';
+				form.reset();
+			} else {
+				feedback.classList.add('border-red-200', 'bg-red-50', 'text-red-800');
+				feedback.textContent = data.error || 'Something went wrong. Please try again.';
+			}
+		} catch (_) {
+			feedback.classList.remove('hidden');
+			feedback.classList.add('border-red-200', 'bg-red-50', 'text-red-800');
+			feedback.textContent = 'Could not send message. Please check your connection or email us directly.';
+		}
+		submitBtn.disabled = false;
+		submitBtn.textContent = 'Send message';
+	});
+</script>

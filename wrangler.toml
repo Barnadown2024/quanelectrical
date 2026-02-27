@@ -6,6 +6,15 @@ name = "quanelectrical"
 compatibility_date = "2025-01-01"
 pages_build_output_dir = "dist"
 
+# D1: contact form submissions. Create DB then run migration:
+#   npx wrangler d1 create quanelectrical-db
+#   npx wrangler d1 execute quanelectrical-db --remote --file=./migrations/0001_contact_submissions.sql
+# Then set database_id below (from "wrangler d1 create" output). Or bind DB in Pages dashboard.
+[[d1_databases]]
+binding = "DB"
+database_name = "quanelectrical-db"
+database_id = "12b64c1e-8983-4983-8a78-8d36cb2ba461"
+
 # Uncomment and set for Decap CMS GitHub OAuth (create OAuth App at https://github.com/settings/developers):
 # [vars]
 # GITHUB_CLIENT_ID = ""
