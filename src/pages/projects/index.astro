@@ -21,9 +21,12 @@ const projects = await getCollection('projects');
 						<a href={`/projects/${project.id}`} class="block aspect-video overflow-hidden">
 							<img
 								src={project.data.afterImage ?? project.data.beforeImage ?? 'https://picsum.photos/seed/' + project.id + '/800/450'}
-								alt=""
+								alt={`${project.data.title} — Quan Electrical`}
+								width={800}
+								height={450}
 								class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
 								loading="lazy"
+								decoding="async"
 							/>
 						</a>
 						<div class="p-6">

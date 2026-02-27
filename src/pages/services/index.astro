@@ -28,10 +28,11 @@ const services = [
 								<img
 									src={service.data.image}
 									alt={`${service.data.title} — Quan Electrical`}
+									width={800}
+									height={500}
 									class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
 									loading="lazy"
-									width="800"
-									height="500"
+									decoding="async"
 								/>
 							</a>
 						)}

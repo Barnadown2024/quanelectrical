@@ -32,13 +32,13 @@ const { Content } = await render(project);
 				<div class="mt-10 grid gap-6 sm:grid-cols-2">
 					{project.data.beforeImage && (
 						<figure class="overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
-							<img src={project.data.beforeImage} alt={`${project.data.title} — before, Quan Electrical`} class="w-full object-cover" width="800" height="500" loading="lazy" />
+							<img src={project.data.beforeImage} alt={`${project.data.title} — before, Quan Electrical`} width={800} height={500} class="w-full object-cover" loading="lazy" decoding="async" />
 							<figcaption class="border-t border-slate-100 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-500">Before</figcaption>
 						</figure>
 					)}
 					{project.data.afterImage && (
 						<figure class="overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
-							<img src={project.data.afterImage} alt={`${project.data.title} — after, Quan Electrical`} class="w-full object-cover" width="800" height="500" loading="lazy" />
+							<img src={project.data.afterImage} alt={`${project.data.title} — after, Quan Electrical`} width={800} height={500} class="w-full object-cover" loading="lazy" decoding="async" />
 							<figcaption class="border-t border-slate-100 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-500">After</figcaption>
 						</figure>
 					)}

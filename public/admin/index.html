@@ -5,10 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="robots" content="noindex" />
 	<title>Content Manager | Quan Electrical</title>
-	<!-- Decap CMS: for Cloudflare Pages use GitHub OAuth via /api/auth (see README) -->
-	<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+	<!-- Decap CMS: load after DOM is ready so nc-root exists -->
+	<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" defer></script>
 </head>
 <body>
-	<!-- Decap CMS loads its UI here -->
+	<div id="nc-root"></div>
 </body>
 </html>

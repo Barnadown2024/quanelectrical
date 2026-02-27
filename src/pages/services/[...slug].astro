@@ -28,10 +28,12 @@ const { Content } = await render(service);
 						<img
 							src={service.data.image}
 							alt={`${service.data.title} — Quan Electrical, Kilkenny`}
+							width={800}
+							height={400}
 							class="w-full object-cover"
 							style="max-height: 400px;"
-							width="800"
-							height="400"
+							loading="eager"
+							decoding="async"
 						/>
 					</div>
 				)}

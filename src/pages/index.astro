@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
+import ogImage from '../assets/og-image.jpg';
 
 const allServices = await getCollection('services');
 // Periodic Inspections first, then the rest (alphabetically by id); take first 6 for home summary
@@ -11,9 +13,11 @@ const servicesSorted = [
 const featuredServices = servicesSorted.slice(0, 6);
 const testimonials = await getCollection('testimonials');
 const featuredTestimonials = testimonials.slice(0, 3);
+
+const ogOptimized = getImage({ src: ogImage, width: 1200, height: 630 });
 ---
 
-<BaseLayout title="Home" description="Quan Electrical — Powering homes, businesses & industry. Domestic, commercial & industrial. Full installations, fault finding, EV chargers, emergency callouts. Covering Kilkenny & surrounding areas." image="/og-image.jpg">
+<BaseLayout title="Home" description="Quan Electrical — Powering homes, businesses & industry. Domestic, commercial & industrial. Full installations, fault finding, EV chargers, emergency callouts. Covering Kilkenny & surrounding areas." image={ogOptimized.src}>
 	<!-- Hero — full impact -->
 	<section class="relative overflow-hidden bg-slate-900">
 		<div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(251,191,36,0.15),transparent)]" aria-hidden="true"></div>
@@ -62,10 +66,11 @@ const featuredTestimonials = testimonials.slice(0, 3);
 								<img
 									src={service.data.image}
 									alt={`${service.data.title} — Quan Electrical, Kilkenny`}
+									width={800}
+									height={500}
 									class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
 									loading="lazy"
-									width="800"
-									height="500"
+									decoding="async"
 								/>
 							)}
 							<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 transition group-hover:opacity-100" aria-hidden="true"></div>
