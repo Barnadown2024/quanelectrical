@@ -1,0 +1,25 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = 'Professional electrical services in Kilkenny and surrounding areas. Domestic, commercial & industrial.' } = Astro.props;
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | Quan Electrical</title>
+	</head>
+	<body class="min-h-screen bg-white text-gray-900 antialiased">
+		<slot />
+	</body>
+</html>

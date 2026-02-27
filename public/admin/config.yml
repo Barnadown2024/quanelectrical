@@ -1,0 +1,112 @@
+# Decap CMS (formerly Netlify CMS) — Git-based CMS for Quan Electrical
+# Docs: https://decapcms.org/docs/configuration-options/
+# For Cloudflare Pages: use GitHub OAuth via a Pages Function (see README)
+
+backend:
+  name: github
+  repo: Barnadown2024/quanelectricial
+  branch: main
+  base_url: https://quanelectricial.com       # ← Your live site (or Cloudflare Pages URL for OAuth)
+  auth_endpoint: api/auth
+
+# Optional: publish with editorial workflow (draft → review → publish)
+# publish_mode: editorial_workflow
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+locale: "en"
+
+collections:
+  # ——— Site settings (singleton) ———
+  - name: "settings"
+    label: "Site settings"
+    files:
+      - label: "Global"
+        name: "global"
+        file: "src/data/settings.json"
+        fields:
+          - { label: "Site title", name: "siteTitle", widget: "string", default: "Quan Electrical" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Address", name: "address", widget: "string" }
+          - { label: "Opening hours", name: "openingHours", widget: "text", required: false }
+          - label: "Social links"
+            name: "social"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Facebook", name: "facebook", widget: "string", required: false }
+              - { label: "LinkedIn", name: "linkedin", widget: "string", required: false }
+
+  # ——— Services ———
+  - name: "services"
+    label: "Services"
+    folder: "src/content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "string" }
+      - { label: "Icon (optional)", name: "icon", widget: "string", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Pricing notes", name: "pricingNotes", widget: "text", required: false }
+      - { label: "Featured image", name: "image", widget: "image", required: false }
+
+  # ——— Projects / Case studies ———
+  - name: "projects"
+    label: "Projects"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Location", name: "location", widget: "string", required: false }
+      - { label: "Problem", name: "problem", widget: "text", required: false }
+      - { label: "Solution", name: "solution", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - label: "Before image"
+        name: "beforeImage"
+        widget: "image"
+        required: false
+      - label: "After image"
+        name: "afterImage"
+        widget: "image"
+        required: false
+
+  # ——— Testimonials ———
+  - name: "testimonials"
+    label: "Testimonials"
+    folder: "src/content/testimonials"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Customer name", name: "name", widget: "string" }
+      - { label: "Town / area", name: "town", widget: "string", required: false }
+      - { label: "Quote", name: "quote", widget: "text" }
+      - { label: "Rating (1–5)", name: "rating", widget: "number", value_type: "int", min: 1, max: 5, required: false }
+
+  # ——— FAQs ———
+  - name: "faqs"
+    label: "FAQs"
+    folder: "src/content/faqs"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Question", name: "question", widget: "string" }
+      - { label: "Answer", name: "answer", widget: "markdown" }
+
+  # ——— Blog ———
+  - name: "blog"
+    label: "Blog"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    format: "frontmatter"
+    extension: "mdx"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string", required: false }
+      - { label: "Publish date", name: "date", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }

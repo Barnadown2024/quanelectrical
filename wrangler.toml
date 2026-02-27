@@ -1,0 +1,12 @@
+# Cloudflare Pages — Quan Electrical
+# Deploy: npm run build && npx wrangler pages deploy dist --project-name quanelectricial
+# Or connect repo in Cloudflare dashboard for automatic deploys.
+
+name = "quanelectricial"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"
+
+# Uncomment and set for Decap CMS GitHub OAuth (create OAuth App at https://github.com/settings/developers):
+# [vars]
+# GITHUB_CLIENT_ID = ""
+# GITHUB_CLIENT_SECRET = ""  # Use Cloudflare secret: wrangler secret put GITHUB_CLIENT_SECRET
