@@ -1,8 +1,8 @@
 # Cloudflare Pages — Quan Electrical
-# Deploy: npm run build && npx wrangler pages deploy dist --project-name quanelectricial
+# Deploy: npm run build && npx wrangler pages deploy dist --project-name quanelectrical
 # Or connect repo in Cloudflare dashboard for automatic deploys.
 
-name = "quanelectricial"
+name = "quanelectrical"
 compatibility_date = "2025-01-01"
 pages_build_output_dir = "dist"
 

@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const services = await getCollection('services');
+---
+
+<BaseLayout title="Services" description="Full electrical installations, fault finding & repairs, lighting & power, fuse board upgrades, EV chargers, emergency callouts. Covering Kilkenny & surrounding areas.">
+	<section class="py-20 md:py-28">
+		<div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="max-w-2xl">
+				<p class="font-heading text-sm font-semibold uppercase tracking-wider text-amber-600">What we do</p>
+				<h1 class="font-heading mt-2 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">Our services</h1>
+				<p class="mt-4 text-lg text-slate-600">
+					Full electrical installations, fault finding & repairs, lighting & power solutions, fuse board upgrades, EV charger installations, and emergency callouts. Domestic | Commercial | Industrial. Covering Kilkenny & surrounding areas.
+				</p>
+			</div>
+			<div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+				{services.map((service) => (
+					<article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-amber-200 hover:shadow-xl hover:shadow-amber-500/5">
+						{service.data.image && (
+							<a href={`/services/${service.id}`} class="block aspect-[16/10] overflow-hidden">
+								<img
+									src={service.data.image}
+									alt=""
+									class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+									loading="lazy"
+								/>
+							</a>
+						)}
+						<div class="flex flex-1 flex-col p-6">
+							<h2 class="font-heading text-xl font-semibold text-slate-900 group-hover:text-amber-700 transition">
+								<a href={`/services/${service.id}`}>{service.data.title}</a>
+							</h2>
+							<p class="mt-2 flex-1 text-slate-600">{service.data.summary}</p>
+							{service.data.pricingNotes && (
+								<p class="mt-3 text-sm font-medium text-amber-600">{service.data.pricingNotes}</p>
+							)}
+							<a href={`/services/${service.id}`} class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-amber-600 group-hover:gap-2 transition-all">
+								Read more
+								<span aria-hidden="true">→</span>
+							</a>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

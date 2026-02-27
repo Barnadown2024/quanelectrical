@@ -4,9 +4,9 @@
 
 backend:
   name: github
-  repo: Barnadown2024/quanelectricial
+  repo: Barnadown2024/quanelectrical
   branch: main
-  base_url: https://quanelectricial.com       # ← Your live site (or Cloudflare Pages URL for OAuth)
+  base_url: https://quanelectrical.com       # ← Your live site (or Cloudflare Pages URL for OAuth)
   auth_endpoint: api/auth
 
 # Optional: publish with editorial workflow (draft → review → publish)

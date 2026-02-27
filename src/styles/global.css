@@ -2,16 +2,75 @@
 
 @plugin "@tailwindcss/typography";
 
-/* Quan Electrical brand theme */
+/* Quan Electrical — premium dark + amber theme */
 @theme {
-	--color-brand-50: oklch(0.97 0.02 45);
-	--color-brand-100: oklch(0.93 0.04 45);
-	--color-brand-200: oklch(0.88 0.08 45);
-	--color-brand-300: oklch(0.82 0.12 45);
-	--color-brand-400: oklch(0.75 0.16 45);
-	--color-brand-500: oklch(0.68 0.18 45);
-	--color-brand-600: oklch(0.58 0.16 45);
-	--color-brand-700: oklch(0.48 0.12 45);
-	--color-brand-800: oklch(0.38 0.08 45);
-	--color-brand-900: oklch(0.28 0.05 45);
+	/* Core dark palette */
+	--color-slate-950: #0a0f1a;
+	--color-slate-900: #0f172a;
+	--color-slate-800: #1e293b;
+	--color-slate-700: #334155;
+	--color-slate-600: #475569;
+	--color-slate-500: #64748b;
+	--color-slate-400: #94a3b8;
+	--color-slate-300: #cbd5e1;
+	--color-slate-200: #e2e8f0;
+	--color-slate-100: #f1f5f9;
+	--color-slate-50: #f8fafc;
+
+	/* Amber accent — electric, premium */
+	--color-amber-50: #fffbeb;
+	--color-amber-100: #fef3c7;
+	--color-amber-200: #fde68a;
+	--color-amber-300: #fcd34d;
+	--color-amber-400: #fbbf24;
+	--color-amber-500: #f59e0b;
+	--color-amber-600: #d97706;
+	--color-amber-700: #b45309;
+	--color-amber-800: #92400e;
+	--color-amber-900: #78350f;
+
+	/* Warm neutrals for light sections */
+	--color-stone-50: #fafaf9;
+	--color-stone-100: #f5f5f4;
+	--color-stone-200: #e7e5e4;
+	--color-stone-300: #d6d3d1;
+	--color-stone-400: #a8a29e;
+	--color-stone-500: #78716c;
+	--color-stone-600: #57534e;
+	--color-stone-700: #44403c;
+	--color-stone-800: #292524;
+	--color-stone-900: #1c1917;
+
+	/* Typography */
+	--font-heading: "Outfit", system-ui, sans-serif;
+	--font-body: "DM Sans", system-ui, sans-serif;
+}
+
+/* Apply font families */
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+	body {
+		font-family: var(--font-body);
+	}
+	h1, h2, h3, h4, h5, h6 {
+		font-family: var(--font-heading);
+	}
+}
+
+@layer utilities {
+	.font-heading {
+		font-family: var(--font-heading);
+	}
+}
+
+/* Prose overrides for content */
+.prose {
+	--tw-prose-body: var(--color-stone-700);
+	--tw-prose-headings: var(--color-slate-900);
+	--tw-prose-links: var(--color-amber-600);
+}
+.prose a:hover {
+	color: var(--color-amber-700);
 }

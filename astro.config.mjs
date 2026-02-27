@@ -6,7 +6,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://quanelectricial.com',
+	site: 'https://quanelectrical.com',
 	integrations: [sitemap(), mdx()],
 	vite: {
 		plugins: [tailwindcss()],

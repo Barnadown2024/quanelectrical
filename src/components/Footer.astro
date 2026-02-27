@@ -1,0 +1,57 @@
+---
+interface Props {
+	siteTitle: string;
+	tagline: string;
+	phone: string;
+	email: string;
+	address: string;
+	openingHours: string;
+	social: { facebook?: string; linkedin?: string };
+}
+
+const { siteTitle, tagline, phone, email, address, openingHours, social } = Astro.props;
+---
+
+<footer class="border-t border-slate-200 bg-slate-900 text-slate-300">
+	<div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-4 lg:px-8">
+		<div class="lg:col-span-2">
+			<p class="font-heading text-2xl font-bold text-white">{siteTitle}</p>
+			<p class="mt-2 text-amber-400/90">{tagline}</p>
+			<p class="mt-4 text-sm text-slate-400">Reliable. Professional. Local.</p>
+		</div>
+		<div>
+			<h3 class="text-xs font-semibold uppercase tracking-wider text-amber-400/90">Contact</h3>
+			<ul class="mt-4 space-y-2 text-sm">
+				{address && <li class="text-slate-400">{address}</li>}
+				{phone && (
+					<li>
+						<a href={`tel:${phone.replace(/\s/g, '')}`} class="transition hover:text-amber-400">{phone}</a>
+					</li>
+				)}
+				{email && (
+					<li>
+						<a href={`mailto:${email}`} class="transition hover:text-amber-400">{email}</a>
+					</li>
+				)}
+			</ul>
+		</div>
+		<div>
+			<h3 class="text-xs font-semibold uppercase tracking-wider text-amber-400/90">Hours</h3>
+			<p class="mt-4 text-sm text-slate-400">{openingHours}</p>
+			<h3 class="mt-6 text-xs font-semibold uppercase tracking-wider text-amber-400/90">Follow</h3>
+			<div class="mt-4 flex gap-4">
+				{social?.facebook && (
+					<a href={social.facebook} target="_blank" rel="noopener noreferrer" class="transition hover:text-amber-400">Facebook</a>
+				)}
+				{social?.linkedin && (
+					<a href={social.linkedin} target="_blank" rel="noopener noreferrer" class="transition hover:text-amber-400">LinkedIn</a>
+				)}
+			</div>
+		</div>
+	</div>
+	<div class="border-t border-slate-800 px-4 py-6 sm:px-6 lg:px-8">
+		<p class="text-center text-sm text-slate-500">
+			© {new Date().getFullYear()} {siteTitle}. All rights reserved.
+		</p>
+	</div>
+</footer>

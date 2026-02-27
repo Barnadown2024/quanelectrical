@@ -4,8 +4,11 @@ interface Props {
 	description?: string;
 }
 
-const { title, description = 'Professional electrical services in Kilkenny and surrounding areas. Domestic, commercial & industrial.' } = Astro.props;
+const { title, description = 'Quan Electrical — Powering homes, businesses & industry. Domestic, commercial & industrial. Covering Kilkenny & surrounding areas. Reliable. Professional. Local.' } = Astro.props;
 import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import settings from '../data/settings.json';
 ---
 
 <!doctype html>
@@ -14,12 +17,25 @@ import '../styles/global.css';
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | Quan Electrical</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 	</head>
-	<body class="min-h-screen bg-white text-gray-900 antialiased">
+	<body class="min-h-screen bg-stone-50 text-slate-900 antialiased">
+		<Header siteTitle={settings.siteTitle} phone={settings.phone} email={settings.email} />
 		<slot />
+		<Footer
+			siteTitle={settings.siteTitle}
+			tagline={settings.tagline}
+			phone={settings.phone}
+			email={settings.email}
+			address={settings.address}
+			openingHours={settings.openingHours}
+			social={settings.social}
+		/>
 	</body>
 </html>

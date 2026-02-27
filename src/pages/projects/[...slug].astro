@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getEntry, getCollection } from 'astro:content';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((entry) => ({ params: { slug: entry.id } }));
+}
+
+const { slug: rawSlug } = Astro.params;
+const slug = Array.isArray(rawSlug) ? rawSlug[0] : rawSlug;
+const project = slug ? await getEntry('projects', slug) : null;
+
+if (!project) {
+	return Astro.redirect('/projects');
+}
+
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} description={project.data.location ?? project.data.title}>
+	<article class="py-20 md:py-28">
+		<div class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+			<header>
+				{project.data.location && (
+					<p class="text-sm font-semibold uppercase tracking-wider text-amber-600">{project.data.location}</p>
+				)}
+				<h1 class="font-heading mt-2 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">{project.data.title}</h1>
+			</header>
+			{(project.data.beforeImage || project.data.afterImage) && (
+				<div class="mt-10 grid gap-6 sm:grid-cols-2">
+					{project.data.beforeImage && (
+						<figure class="overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
+							<img src={project.data.beforeImage} alt="Before" class="w-full object-cover" />
+							<figcaption class="border-t border-slate-100 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-500">Before</figcaption>
+						</figure>
+					)}
+					{project.data.afterImage && (
+						<figure class="overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
+							<img src={project.data.afterImage} alt="After" class="w-full object-cover" />
+							<figcaption class="border-t border-slate-100 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-500">After</figcaption>
+						</figure>
+					)}
+				</div>
+			)}
+			<div class="prose prose-slate prose-lg mt-12 max-w-none prose-a:text-amber-600">
+				<Content />
+			</div>
+			<p class="mt-14">
+				<a href="/contact" class="inline-flex rounded-xl bg-amber-500 px-8 py-4 font-heading font-semibold text-slate-900 shadow-sm transition hover:bg-amber-400">Get a quote</a>
+			</p>
+		</div>
+	</article>
+</BaseLayout>

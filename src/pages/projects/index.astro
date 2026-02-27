@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+---
+
+<BaseLayout title="Projects" description="Case studies and recent electrical projects in Kilkenny: rewires, commercial, EV charging.">
+	<section class="py-20 md:py-28">
+		<div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="max-w-2xl">
+				<p class="font-heading text-sm font-semibold uppercase tracking-wider text-amber-600">Case studies</p>
+				<h1 class="font-heading mt-2 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">Our projects</h1>
+				<p class="mt-4 text-lg text-slate-600">
+					Recent domestic, commercial, and EV charging jobs across Kilkenny and the southeast.
+				</p>
+			</div>
+			<div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+				{projects.map((project) => (
+					<article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-amber-200 hover:shadow-xl">
+						<a href={`/projects/${project.id}`} class="block aspect-video overflow-hidden">
+							<img
+								src={project.data.afterImage ?? project.data.beforeImage ?? 'https://picsum.photos/seed/' + project.id + '/800/450'}
+								alt=""
+								class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+								loading="lazy"
+							/>
+						</a>
+						<div class="p-6">
+							{project.data.location && (
+								<p class="text-sm font-medium text-amber-600">{project.data.location}</p>
+							)}
+							<h2 class="font-heading mt-2 text-xl font-semibold text-slate-900 group-hover:text-amber-700 transition">
+								<a href={`/projects/${project.id}`}>{project.data.title}</a>
+							</h2>
+							{project.data.tags && project.data.tags.length > 0 && (
+								<div class="mt-3 flex flex-wrap gap-2">
+									{project.data.tags.map((tag) => (
+										<span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">{tag}</span>
+									))}
+								</div>
+							)}
+							<a href={`/projects/${project.id}`} class="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-amber-600 group-hover:gap-2 transition-all">
+								Read case study
+								<span aria-hidden="true">→</span>
+							</a>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+</BaseLayout>

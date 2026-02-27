@@ -1,4 +1,4 @@
-# Quan Electrical — quanelectricial.com
+# Quan Electrical — quanelectrical.com
 
 Professional electrician website for **Kilkenny, Ireland** (Larry Quan). Built with Astro, Tailwind CSS, and a full Git-based CMS so content can be updated without touching code.
 
@@ -24,7 +24,7 @@ CMS admin: [http://localhost:4321/admin](http://localhost:4321/admin).
 
 ```bash
 npm run build
-npx wrangler pages deploy dist --project-name quanelectricial
+npx wrangler pages deploy dist --project-name quanelectrical
 ```
 
 Or connect this repo in the Cloudflare Pages dashboard for automatic deploys on push.
@@ -35,7 +35,7 @@ Decap uses the **GitHub** backend. For login to work on Cloudflare Pages you nee
 
 1. **GitHub OAuth App**  
    Create an app at [GitHub Developer Settings](https://github.com/settings/developers).  
-   Homepage: `https://quanelectricial.com` (or your Pages URL).  
+   Homepage: `https://quanelectrical.com` (or your Pages URL).  
    Callback: `https://your-site.pages.dev/api/auth` (or your proxy URL).
 
 2. **OAuth proxy**  
@@ -44,7 +44,7 @@ Decap uses the **GitHub** backend. For login to work on Cloudflare Pages you nee
 
 3. **Config**  
    In `public/admin/config.yml` set:
-   - `backend.repo` → your GitHub repo (e.g. `your-username/quanelectricial-site`)
+   - `backend.repo` → your GitHub repo (e.g. `Barnadown2024/quanelectrical`)
    - `backend.base_url` → your Cloudflare Pages URL (where the OAuth proxy runs)
    - `backend.auth_endpoint` → `api/auth`
 
