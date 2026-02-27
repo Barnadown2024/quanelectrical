@@ -17,32 +17,135 @@ const navLinks = [
 ];
 ---
 
-<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-stone-50/95 backdrop-blur-md">
-	<div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-		<a href="/" class="font-heading text-xl font-bold tracking-tight text-slate-900 transition hover:text-amber-600">
+<header class="sticky top-0 z-50 border-b border-slate-200/80 bg-stone-50/95 backdrop-blur-md" id="site-header">
+	<div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+		<a href="/" class="font-heading text-lg font-bold tracking-tight text-slate-900 transition hover:text-amber-600 sm:text-xl min-touch">
 			{siteTitle}
 		</a>
 
-		<nav class="flex flex-wrap items-center gap-1 sm:gap-2" aria-label="Main">
+		<!-- Desktop nav + CTA -->
+		<nav class="hidden items-center gap-1 sm:gap-2 md:flex" aria-label="Main">
 			{navLinks.map((link) => (
 				<a
 					href={link.href}
-					class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+					class="rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 min-touch"
 				>
 					{link.label}
 				</a>
 			))}
 		</nav>
-
-		<div class="flex items-center gap-3 text-sm">
+		<div class="hidden items-center gap-3 text-sm md:flex">
 			{phone && (
-				<a href={`tel:${phone.replace(/\s/g, '')}`} class="rounded-lg px-3 py-2 font-medium text-slate-600 transition hover:bg-amber-50 hover:text-amber-700">
+				<a href={`tel:${phone.replace(/\s/g, '')}`} class="rounded-lg px-3 py-2.5 font-medium text-slate-600 transition hover:bg-amber-50 hover:text-amber-700 min-touch">
 					{phone}
 				</a>
 			)}
-			<a href="/contact" class="rounded-lg bg-amber-500 px-4 py-2 font-semibold text-slate-900 shadow-sm transition hover:bg-amber-400">
+			<a href="/contact" class="rounded-lg bg-amber-500 px-4 py-2.5 font-semibold text-slate-900 transition hover:bg-amber-400 min-touch">
 				Get a quote
 			</a>
 		</div>
+
+		<!-- Mobile menu button -->
+		<button
+			type="button"
+			class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50 active:bg-slate-100 md:hidden min-touch"
+			aria-expanded="false"
+			aria-controls="mobile-menu"
+			aria-label="Open menu"
+			id="menu-toggle"
+		>
+			<span class="sr-only">Open menu</span>
+			<svg class="h-6 w-6 menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+			</svg>
+			<svg class="h-6 w-6 menu-icon-close hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+			</svg>
+		</button>
+	</div>
+
+	<!-- Mobile menu panel -->
+	<div
+		id="mobile-menu"
+		class="hidden border-t border-slate-200 bg-white md:hidden"
+		aria-label="Main navigation"
+	>
+		<nav class="flex flex-col px-4 py-4" aria-label="Main">
+			{navLinks.map((link) => (
+				<a
+					href={link.href}
+					class="rounded-lg px-4 py-3.5 text-base font-medium text-slate-700 transition hover:bg-slate-100 active:bg-slate-100 min-touch"
+					data-mobile-nav-link
+				>
+					{link.label}
+				</a>
+			))}
+			{phone && (
+				<a
+					href={`tel:${phone.replace(/\s/g, '')}`}
+					class="mt-2 rounded-lg px-4 py-3.5 text-base font-medium text-amber-600 transition hover:bg-amber-50 active:bg-amber-50 min-touch"
+					data-mobile-nav-link
+				>
+					Call {phone}
+				</a>
+			)}
+			<a
+				href="/contact"
+				class="mt-2 inline-flex items-center justify-center rounded-xl bg-amber-500 px-6 py-3.5 text-base font-semibold text-slate-900 transition hover:bg-amber-400 active:bg-amber-400 min-touch"
+				data-mobile-nav-link
+			>
+				Get a quote
+			</a>
+		</nav>
 	</div>
 </header>
+
+<script is:inline>
+	(function () {
+		function initMobileMenu() {
+			var header = document.getElementById('site-header');
+			if (!header) return;
+			var toggle = header.querySelector('#menu-toggle');
+			var menu = header.querySelector('#mobile-menu');
+			var iconOpen = header.querySelector('.menu-icon-open');
+			var iconClose = header.querySelector('.menu-icon-close');
+			if (!toggle || !menu) return;
+
+			function openMenu() {
+				menu.classList.remove('hidden');
+				toggle.setAttribute('aria-expanded', 'true');
+				toggle.setAttribute('aria-label', 'Close menu');
+				if (iconOpen) iconOpen.classList.add('hidden');
+				if (iconClose) iconClose.classList.remove('hidden');
+				document.body.style.overflow = 'hidden';
+			}
+
+			function closeMenu() {
+				menu.classList.add('hidden');
+				toggle.setAttribute('aria-expanded', 'false');
+				toggle.setAttribute('aria-label', 'Open menu');
+				if (iconOpen) iconOpen.classList.remove('hidden');
+				if (iconClose) iconClose.classList.add('hidden');
+				document.body.style.overflow = '';
+			}
+
+			toggle.addEventListener('click', function () {
+				if (toggle.getAttribute('aria-expanded') === 'true') closeMenu();
+				else openMenu();
+			});
+
+			header.querySelectorAll('[data-mobile-nav-link]').forEach(function (link) {
+				link.addEventListener('click', closeMenu);
+			});
+
+			window.addEventListener('resize', function () {
+				if (window.innerWidth >= 768) closeMenu();
+			});
+		}
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initMobileMenu);
+		} else {
+			initMobileMenu();
+		}
+	})();
+</script>

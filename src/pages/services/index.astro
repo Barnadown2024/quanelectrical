@@ -2,7 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const services = await getCollection('services');
+const allServices = await getCollection('services');
+// Periodic Inspections first, then the rest (alphabetically by id)
+const services = [
+	...allServices.filter((s) => s.id === 'periodic-inspections'),
+	...allServices.filter((s) => s.id !== 'periodic-inspections').sort((a, b) => a.id.localeCompare(b.id)),
+];
 ---
 
 <BaseLayout title="Services" description="Full electrical installations, fault finding & repairs, lighting & power, fuse board upgrades, EV chargers, emergency callouts. Covering Kilkenny & surrounding areas.">

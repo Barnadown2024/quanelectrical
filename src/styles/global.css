@@ -46,17 +46,40 @@
 	--font-body: "DM Sans", system-ui, sans-serif;
 }
 
-/* Apply font families */
+/* Mobile-friendly base */
 @layer base {
 	html {
 		scroll-behavior: smooth;
+		-webkit-text-size-adjust: 100%;
 	}
 	body {
 		font-family: var(--font-body);
+		overflow-x: hidden;
 	}
 	h1, h2, h3, h4, h5, h6 {
 		font-family: var(--font-heading);
 	}
+	/* Prevent iOS zoom on input focus (16px minimum) */
+	input, select, textarea, button {
+		font-size: 16px;
+	}
+	@media (min-width: 768px) {
+		input, select, textarea {
+			font-size: inherit;
+		}
+	}
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+}
+
+/* Minimum touch target size (44px) for tap/click accessibility */
+.min-touch {
+	min-height: 44px;
+}
+button.min-touch {
+	min-width: 44px;
 }
 
 @layer utilities {
