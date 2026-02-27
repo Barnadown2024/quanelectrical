@@ -27,9 +27,11 @@ const services = [
 							<a href={`/services/${service.id}`} class="block aspect-[16/10] overflow-hidden">
 								<img
 									src={service.data.image}
-									alt=""
+									alt={`${service.data.title} — Quan Electrical`}
 									class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
 									loading="lazy"
+									width="800"
+									height="500"
 								/>
 							</a>
 						)}

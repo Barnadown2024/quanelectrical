@@ -2,25 +2,78 @@
 interface Props {
 	title: string;
 	description?: string;
+	/** Absolute or path for OG/Twitter image (e.g. /og-image.jpg). Optional. */
+	image?: string;
+	/** Set true to request noindex (e.g. thank-you pages). */
+	noIndex?: boolean;
+	/** Override canonical URL (defaults to current page). */
+	canonicalURL?: URL | string;
 }
 
-const { title, description = 'Quan Electrical — Powering homes, businesses & industry. Domestic, commercial & industrial. Covering Kilkenny & surrounding areas. Reliable. Professional. Local.' } = Astro.props;
+const { title, description = 'Quan Electrical — Powering homes, businesses & industry. Domestic, commercial & industrial. Covering Kilkenny & surrounding areas. Reliable. Professional. Local.', image, noIndex = false, canonicalURL } = Astro.props;
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import settings from '../data/settings.json';
+
+const site = Astro.site ?? new URL('https://quanelectrical.com');
+const canonical = canonicalURL ? new URL(canonicalURL, site) : new URL(Astro.url.pathname, site);
+const canonicalHref = canonical.toString();
+const ogImage = image ? (image.startsWith('http') ? image : new URL(image, site).toString()) : new URL('/favicon.svg', site).toString();
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content={description} />
-		<meta name="generator" content={Astro.generator} />
 		<title>{title} | Quan Electrical</title>
+		<meta name="description" content={description} />
+		{noIndex && <meta name="robots" content="noindex, nofollow" />}
+		<link rel="canonical" href={canonicalHref} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Quan Electrical" />
+		<meta property="og:title" content={`${title} | Quan Electrical`} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalHref} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:locale" content="en_IE" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={`${title} | Quan Electrical`} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<meta name="theme-color" content="#0f172a" />
+		<meta name="generator" content={Astro.generator} />
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Electrician',
+			'@id': `${site.origin}/#organization`,
+			name: settings.siteTitle,
+			description: settings.tagline,
+			url: site.origin,
+			telephone: settings.phone?.replace(/\s/g, '') ?? undefined,
+			email: settings.email ?? undefined,
+			address: settings.address ? {
+				'@type': 'PostalAddress',
+				addressLocality: 'Kilkenny',
+				addressRegion: 'County Kilkenny',
+				addressCountry: 'IE',
+				streetAddress: settings.address,
+			} : undefined,
+			areaServed: { '@type': 'GeoCircle', geoMidpoint: { '@type': 'GeoCoordinates', latitude: 52.6541, longitude: -7.2550 }, geoRadius: '50000' },
+			openingHoursSpecification: settings.openingHours ? { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:00', closes: '18:00' } : undefined,
+			priceRange: '€€',
+			image: ogImage,
+		})} />
+
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />

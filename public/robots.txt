@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# CMS and API - optional: disallow if you prefer search engines not to discover admin
+Disallow: /admin/
+
+Sitemap: https://quanelectrical.com/sitemap-index.xml

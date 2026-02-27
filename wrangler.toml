@@ -15,6 +15,14 @@ binding = "DB"
 database_name = "quanelectrical-db"
 database_id = "12b64c1e-8983-4983-8a78-8d36cb2ba461"
 
+# Optional: email when someone submits the contact form (Pages > Settings > Environment variables).
+# Set NOTIFICATION_EMAIL to the address that should receive each submission (e.g. info@quanelectrical.com).
+# Use one of these to send (secrets recommended for API keys):
+#   RESEND_API_KEY     - Resend (https://resend.com) – recommended
+#   SENDGRID_API_KEY   - SendGrid
+#   EMAIL_WORKER_URL   - Your Cloudflare Email Worker URL (+ optional EMAIL_WORKER_TOKEN)
+#   EMAIL_FROM         - Optional "From" address (e.g. Quan Electrical <noreply@quanelectrical.com>)
+
 # Uncomment and set for Decap CMS GitHub OAuth (create OAuth App at https://github.com/settings/developers):
 # [vars]
 # GITHUB_CLIENT_ID = ""

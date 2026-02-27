@@ -7,7 +7,12 @@ import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://quanelectrical.com',
-	integrations: [sitemap(), mdx()],
+	integrations: [
+		sitemap({
+			filter: (page) => !page.includes('/admin') && !page.includes('/api/'),
+		}),
+		mdx(),
+	],
 	vite: {
 		plugins: [tailwindcss()],
 	},

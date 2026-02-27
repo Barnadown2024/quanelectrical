@@ -19,7 +19,7 @@ if (!service) {
 const { Content } = await render(service);
 ---
 
-<BaseLayout title={service.data.title} description={service.data.summary}>
+<BaseLayout title={service.data.title} description={service.data.summary} image={service.data.image}>
 	<article class="py-20 md:py-28">
 		<div class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
 			<header>
@@ -27,9 +27,11 @@ const { Content } = await render(service);
 					<div class="overflow-hidden rounded-2xl border border-slate-200 shadow-xl">
 						<img
 							src={service.data.image}
-							alt=""
+							alt={`${service.data.title} — Quan Electrical, Kilkenny`}
 							class="w-full object-cover"
 							style="max-height: 400px;"
+							width="800"
+							height="400"
 						/>
 					</div>
 				)}
