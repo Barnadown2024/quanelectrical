@@ -3,7 +3,7 @@ title: Fuse Board Upgrades
 summary: Consumer unit upgrades with RCD/RCBO protection. Essential for safety and compliance in older properties.
 icon: shield
 pricingNotes: "Often required for insurance and when selling or renting. Free quotes."
-image: https://picsum.photos/seed/fuseboard/800/500
+image: /uploads/fuse-board-upgrades.png
 ---
 
 Older fuse boards often lack the RCD protection required by current regulations. We upgrade consumer units (fuse boards) to modern standards, improving safety and meeting compliance for insurance, sales, and rentals.
