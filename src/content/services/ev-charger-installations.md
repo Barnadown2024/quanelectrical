@@ -3,7 +3,7 @@ title: EV Charger Installations
 summary: Home and workplace electric vehicle charging point installation. Approved installer — SEAI grant support available.
 icon: bolt
 pricingNotes: "SEAI grant support available for home chargers. Fixed-price quotes."
-image: https://picsum.photos/seed/evcharger/800/500
+image: /uploads/ev-charger-installations.png
 ---
 
 We install electric vehicle charging points for homes and businesses across Kilkenny and the southeast. As an approved installer, we ensure correct sizing, safe wiring, and compatibility with your vehicle and tariff — and we can help with SEAI grant applications.
