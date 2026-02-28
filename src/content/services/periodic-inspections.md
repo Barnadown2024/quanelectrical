@@ -3,7 +3,7 @@ title: Periodic Inspections
 summary: Electrical installation condition reports and periodic testing for homes and businesses. Compliance and peace of mind.
 icon: clipboard-check
 pricingNotes: "Competitive rates. Certificates provided. Often required for insurance, rentals, and sales."
-image: https://picsum.photos/seed/periodic/800/500
+image: /uploads/periodic-inspections.png
 ---
 
 We carry out periodic inspection and testing of electrical installations for domestic and commercial properties across Kilkenny and surrounding areas. A periodic inspection (sometimes called an electrical condition report) checks the safety of your wiring, consumer unit, and circuits and identifies any defects or non-compliance.
