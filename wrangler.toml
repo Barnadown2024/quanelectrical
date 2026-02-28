@@ -23,7 +23,7 @@ database_id = "12b64c1e-8983-4983-8a78-8d36cb2ba461"
 #   EMAIL_WORKER_URL   - Your Cloudflare Email Worker URL (+ optional EMAIL_WORKER_TOKEN)
 #   EMAIL_FROM         - Optional "From" address (e.g. Quan Electrical <noreply@quanelectrical.com>)
 
-# Uncomment and set for Decap CMS GitHub OAuth (create OAuth App at https://github.com/settings/developers):
-# [vars]
-# GITHUB_CLIENT_ID = ""
-# GITHUB_CLIENT_SECRET = ""  # Use Cloudflare secret: wrangler secret put GITHUB_CLIENT_SECRET
+# Decap CMS GitHub OAuth (Pages > Settings > Environment variables; use Secrets for GITHUB_CLIENT_SECRET):
+#   GITHUB_CLIENT_ID   - from GitHub OAuth App (Settings > Developer settings > OAuth Apps > New)
+#   GITHUB_CLIENT_SECRET - from same OAuth App (mark as Secret in Cloudflare)
+# In the GitHub OAuth App set Authorization callback URL to: https://quanelectrical.com/api/callback
