@@ -127,7 +127,11 @@ import settings from '../../data/settings.json';
 			feedback.classList.remove('hidden');
 			if (data.success) {
 				feedback.classList.add('border-green-200', 'bg-green-50', 'text-green-800');
-				feedback.textContent = data.message || 'Thank you. Your message has been sent.';
+				let msg = data.message || 'Thank you. Your message has been sent.';
+				if (data.notificationSent === false) {
+					msg += ' (No email alert was sent to the team — check Cloudflare/Resend settings.)';
+				}
+				feedback.textContent = msg;
 				form.reset();
 			} else {
 				feedback.classList.add('border-red-200', 'bg-red-50', 'text-red-800');

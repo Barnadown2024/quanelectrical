@@ -111,6 +111,7 @@ Submitted: ${new Date(submission.submittedAt).toLocaleString()}
 	}
 
 	if (env.RESEND_API_KEY) {
+		const from = env.EMAIL_FROM || 'Quan Electrical <onboarding@resend.dev>';
 		const res = await fetch('https://api.resend.com/emails', {
 			method: 'POST',
 			headers: {
@@ -118,18 +119,19 @@ Submitted: ${new Date(submission.submittedAt).toLocaleString()}
 				Authorization: `Bearer ${env.RESEND_API_KEY}`,
 			},
 			body: JSON.stringify({
-				from: env.EMAIL_FROM || 'Quan Electrical <onboarding@resend.dev>',
+				from,
 				to: [to],
 				subject,
 				text: emailBody,
 				html: formatEmailHTML(submission),
 			}),
 		});
+		const data = await res.json().catch(() => ({}));
 		if (!res.ok) {
-			const err = await res.json().catch(() => ({}));
-			throw new Error(err.message || res.statusText);
+			console.error('Resend API error', res.status, data);
+			throw new Error(data.message || data.msg || res.statusText || 'Resend request failed');
 		}
-		return await res.json();
+		return data;
 	}
 
 	if (env.SENDGRID_API_KEY) {
@@ -194,30 +196,40 @@ export async function onRequestPost(context) {
 			.bind(name, email, phone, message)
 			.run();
 
+		let notificationSent = false;
 		if (env.NOTIFICATION_EMAIL) {
-			try {
-				await sendNotificationEmail(
-					{
-						to: env.NOTIFICATION_EMAIL,
-						subject: `Contact form: ${name}`,
-						submission: {
-							name,
-							email,
-							phone,
-							message,
-							submittedAt: new Date().toISOString(),
+			if (!env.RESEND_API_KEY) {
+				console.error('Contact form: NOTIFICATION_EMAIL is set but RESEND_API_KEY is missing. Add RESEND_API_KEY in Cloudflare Pages → Settings → Environment variables (Production).');
+			} else {
+				try {
+					await sendNotificationEmail(
+						{
+							to: env.NOTIFICATION_EMAIL,
+							subject: `Contact form: ${name}`,
+							submission: {
+								name,
+								email,
+								phone,
+								message,
+								submittedAt: new Date().toISOString(),
+							},
 						},
-					},
-					env
-				);
-			} catch (emailErr) {
-				console.error('Contact form: notification email failed', emailErr.message || emailErr);
+						env
+					);
+					notificationSent = true;
+					console.log('Contact form: notification email sent to', env.NOTIFICATION_EMAIL);
+				} catch (emailErr) {
+					console.error('Contact form: Resend failed', emailErr.message || emailErr);
+				}
 			}
+		} else {
+			console.warn('Contact form: NOTIFICATION_EMAIL not set. No email sent. Set it in Cloudflare Pages → Settings → Environment variables.');
 		}
 
 		return jsonResponse({
 			success: true,
 			message: 'Thank you. Your message has been received. We will get back to you soon.',
+			notificationSent,
 		});
 	} catch (e) {
 		console.error('Contact API error:', e);
