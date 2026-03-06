@@ -10,7 +10,7 @@ interface Props {
 	canonicalURL?: URL | string;
 }
 
-const { title, description = 'Quan Electrical — Powering homes, businesses & industry. Domestic, commercial & industrial. Covering Kilkenny & surrounding areas. Reliable. Professional. Local.', image, noIndex = false, canonicalURL } = Astro.props;
+const { title, description = 'Quan Electrical — electrician Kilkenny & South East Ireland. Rewires, EICR, fuse board upgrades, EV chargers, emergency callouts. Free quote. Certified.', image, noIndex = false, canonicalURL } = Astro.props;
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -29,6 +29,7 @@ const ogImage = image ? (image.startsWith('http') ? image : new URL(image, site)
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title} | Quan Electrical</title>
 		<meta name="description" content={description} />
+		<meta name="keywords" content="electrician Kilkenny, electrical contractor Kilkenny, electrician South East Ireland, rewires Kilkenny, EICR periodic inspection, fuse board upgrade, EV charger installation, emergency electrician, Carlow Waterford Wexford Tipperary Kildare Laois, Quan Electrical" />
 		{noIndex && <meta name="robots" content="noindex, nofollow" />}
 		<link rel="canonical" href={canonicalHref} />
 
@@ -50,14 +51,19 @@ const ogImage = image ? (image.startsWith('http') ? image : new URL(image, site)
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" sizes="any" />
 		<meta name="theme-color" content="#0f172a" />
+		<meta name="color-scheme" content="light" />
+		<meta name="referrer" content="strict-origin-when-cross-origin" />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- Preload critical font CSS for faster LCP -->
+		<link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@400;500;600;700;800&display=swap" as="style" />
 
 		<script type="application/ld+json" set:html={JSON.stringify({
 			'@context': 'https://schema.org',
 			'@type': 'Electrician',
 			'@id': `${site.origin}/#organization`,
 			name: settings.siteTitle,
-			description: settings.tagline,
+			description: `Electrician Kilkenny and South East Ireland. Domestic rewires, EICR periodic inspections, fuse board upgrades, EV charger installation, emergency callouts. Certified. ${settings.tagline}`,
 			url: site.origin,
 			telephone: settings.phone?.replace(/\s/g, '') ?? undefined,
 			email: settings.email ?? undefined,
@@ -79,8 +85,11 @@ const ogImage = image ? (image.startsWith('http') ? image : new URL(image, site)
 		<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 	</head>
 	<body class="min-h-screen bg-stone-50 text-slate-900 antialiased">
+		<a href="#main" class="skip-link">Skip to main content</a>
 		<Header siteTitle={settings.siteTitle} phone={settings.phone} email={settings.email} />
+		<main id="main" tabindex="-1">
 		<slot />
+		</main>
 		<Footer
 			siteTitle={settings.siteTitle}
 			tagline={settings.tagline}

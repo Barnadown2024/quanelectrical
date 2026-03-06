@@ -17,14 +17,14 @@ const featuredTestimonials = testimonials.slice(0, 3);
 const ogOptimized = getImage({ src: ogImage, width: 1200, height: 630 });
 ---
 
-<BaseLayout title="Home" description="Quan Electrical — Powering homes, businesses & industry. Domestic, commercial & industrial. Full installations, fault finding, EV chargers, emergency callouts. Covering Kilkenny & surrounding areas." image={ogOptimized.src}>
+<BaseLayout title="Home" description="Electrician Kilkenny & South East Ireland. Rewires, EICR, fuse board upgrades, EV charger installation, emergency callouts. Domestic, commercial & industrial. Free quote. Quan Electrical." image={ogOptimized.src}>
 	<!-- Hero — full impact -->
 	<section class="relative overflow-hidden bg-slate-900">
 		<div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(251,191,36,0.15),transparent)]" aria-hidden="true"></div>
 		<div class="absolute inset-0 bg-[linear-gradient(to_right,#3341550a_1px,transparent_1px),linear-gradient(to_bottom,#3341550a_1px,transparent_1px)] bg-[size:4rem_4rem]" aria-hidden="true"></div>
 		<div class="container relative mx-auto px-4 py-16 sm:px-6 sm:py-24 md:py-32 lg:px-8">
 			<div class="max-w-3xl">
-				<p class="font-heading text-sm font-semibold uppercase tracking-[0.2em] text-amber-400">Kilkenny & surrounding areas</p>
+				<p class="font-heading text-sm font-semibold uppercase tracking-[0.2em] text-amber-400">Electrician Kilkenny & South East Ireland</p>
 				<h1 class="font-heading mt-4 text-3xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
 					Powering homes,<br />businesses & industry
 				</h1>
@@ -59,7 +59,7 @@ const ogOptimized = getImage({ src: ogImage, width: 1200, height: 630 });
 				</p>
 			</div>
 			<div class="mt-10 grid gap-6 sm:mt-16 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-				{featuredServices.map((service) => (
+				{featuredServices.map((service, i) => (
 					<a href={`/services/${service.id}`} class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:border-amber-200 hover:shadow-xl hover:shadow-amber-500/5">
 						<div class="aspect-[4/3] overflow-hidden">
 							{service.data.image && (
@@ -69,7 +69,8 @@ const ogOptimized = getImage({ src: ogImage, width: 1200, height: 630 });
 									width={800}
 									height={500}
 									class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-									loading="lazy"
+									loading={i === 0 ? 'eager' : 'lazy'}
+									fetchpriority={i === 0 ? 'high' : undefined}
 									decoding="async"
 								/>
 							)}

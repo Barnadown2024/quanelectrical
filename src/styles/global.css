@@ -52,6 +52,16 @@
 		scroll-behavior: smooth;
 		-webkit-text-size-adjust: 100%;
 	}
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+		*, *::before, *::after {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+		}
+	}
 	body {
 		font-family: var(--font-body);
 		overflow-x: hidden;
@@ -71,6 +81,39 @@
 	img {
 		max-width: 100%;
 		height: auto;
+	}
+	/* Keyboard focus visible (accessibility) */
+	:where(a, button):focus {
+		outline: none;
+	}
+	:where(a, button):focus-visible {
+		outline: 2px solid var(--color-amber-500);
+		outline-offset: 2px;
+	}
+}
+
+/* Skip link — visible on focus for keyboard users */
+.skip-link {
+	position: absolute;
+	top: -100%;
+	left: 0.5rem;
+	z-index: 100;
+	padding: 0.75rem 1rem;
+	background: var(--color-slate-900);
+	color: white;
+	font-weight: 600;
+	text-decoration: none;
+	border-radius: 0.5rem;
+	transition: top 0.2s ease;
+}
+.skip-link:focus {
+	top: 0.5rem;
+	outline: 2px solid var(--color-amber-400);
+	outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+	.skip-link {
+		transition: none;
 	}
 }
 
