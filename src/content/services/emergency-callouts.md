@@ -2,7 +2,7 @@
 title: Emergency Callouts Available
 summary: When you need an electrician urgently, we're here. Emergency callouts for domestic and commercial customers.
 icon: phone
-pricingNotes: "Call 086 362 4032. We'll do our best to attend when you need us."
+pricingNotes: "Call 089 216 1048. We'll do our best to attend when you need us."
 image: /uploads/emergency-callouts.png
 ---
 
@@ -14,4 +14,4 @@ When the power's out, something's tripping, or you have an electrical emergency,
 - Post-flood or storm damage
 - Urgent fault finding and repair
 
-Call **086 362 4032** and we'll do our best to attend. There may be a call-out charge outside normal hours — we'll confirm when you ring.
+Call **089 216 1048** and we'll do our best to attend. There may be a call-out charge outside normal hours — we'll confirm when you ring.
