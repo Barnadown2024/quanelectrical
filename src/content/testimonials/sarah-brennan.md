@@ -1,6 +1,6 @@
 ---
-name: Sarah Brennan
-town: Callan
-quote: "Had our EV charger installed by Quan Electrical. They handled the SEAI grant paperwork and the install was done in a day. Very happy with the result."
+name: Nicola Neary
+town: Kilkenny
+quote: Larry is a very experienced electrician and focused on getting the job done
 rating: 5
 ---
