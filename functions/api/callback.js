@@ -3,17 +3,21 @@
  * Set GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET in Cloudflare Pages env (use Secrets for the secret).
  */
 function loginPageHtml(status, payload) {
-	const message = `authorization:github:${status}:${JSON.stringify(payload)}`;
+	const content = JSON.stringify(payload);
 	return `<!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>Logging in...</title></head>
 <body>
 <script>
 (function() {
-  var msg = ${JSON.stringify(message)};
-  if (window.opener) {
-    window.opener.postMessage(msg, window.opener.origin || '*');
+  function receiveMessage(e) {
+    window.opener.postMessage(
+      'authorization:github:${status}:' + ${JSON.stringify(content)},
+      e.origin
+    );
+    window.removeEventListener('message', receiveMessage, false);
   }
-  window.close();
+  window.addEventListener('message', receiveMessage, false);
+  window.opener.postMessage('authorizing:github', '*');
 })();
 </script>
 <p>Logging in... You can close this window if it doesn't close automatically.</p>
