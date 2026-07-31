@@ -14,6 +14,7 @@ const { title, description = 'Quan Electrical — electrician Kilkenny & South E
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import settings from '../data/settings.json';
 
 const site = Astro.site ?? new URL('https://quanelectrical.com');
@@ -99,5 +100,8 @@ const ogImage = image ? (image.startsWith('http') ? image : new URL(image, site)
 			openingHours={settings.openingHours}
 			social={settings.social}
 		/>
+		{settings.social?.whatsapp && (
+			<WhatsAppFloat whatsappUrl={settings.social.whatsapp} />
+		)}
 	</body>
 </html>
