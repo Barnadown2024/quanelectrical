@@ -47,6 +47,20 @@ import settings from '../../data/settings.json';
 							</div>
 						)}
 					</dl>
+					{settings.social?.whatsapp && (
+						<p class="mt-8 border-t border-slate-100 pt-6 text-sm text-slate-600">
+							Prefer WhatsApp?{' '}
+							<a
+								href={settings.social.whatsapp}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="font-medium text-amber-600 hover:text-amber-700"
+							>
+								Message the owner directly
+							</a>
+							{' '}for a quick reply.
+						</p>
+					)}
 				</div>
 
 				<div class="rounded-2xl border border-slate-200 bg-slate-50/50 p-8">
